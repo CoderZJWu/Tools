@@ -1,0 +1,144 @@
+{#{% load staticfiles %}#}
+<!DOCTYPE html>
+<html lang="en">
+{% comment %}<head>
+    {% load static %}
+    <title>bootstrap-table</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    {#        <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.6.2-dist/css/bootstrap-table.min.css">#}
+    {#        <link rel="stylesheet" type="text/css" href="/static/jqGrid-v4.6.0/css/ui.jqgrid.css">#}
+    <link rel="stylesheet" type="text/css" href="/static/jqGrid-v4.6.0/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap-datepicker.css">
+
+    <script type="text/javascript" src="/static/bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/jqGrid-v4.6.0/js/minified/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    {#    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap-table.min.js"></script>#}
+    {#        <script type="text/javascript" src="/static/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>#}
+    <script>
+        $.jgrid.defaults.width = 1500;
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+
+</head>{% endcomment %}
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/ecmascript" src="/static/bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <!-- We support more than 40 localizations -->
+    <script type="text/ecmascript" src="/static/jqGrid-v4.6.0/js/i18n/grid.locale-cn.js"></script>
+    <!-- This is the Javascript file of jqGrid -->
+    <script type="text/ecmascript" src="/static/jqGrid-v4.6.0/js/jquery.jqGrid.min.js"></script>
+    <!-- A link to a Boostrap  and jqGrid Bootstrap CSS siles-->
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/jqGrid-v4.6.0/css/ui.jqgrid-bootstrap.css"/>
+    <script>
+        $.jgrid.defaults.width = 1500;
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+    <script type="text/ecmascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap-datepicker.js"></script>
+    <script type="text/ecmascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap3-typeahead.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="/static/bootstrap-3.4.1-dist/css/bootstrap-datepicker.css"/>
+    <meta charset="utf-8"/>
+    <title>jqGrid Loading Data - Toolbar Searching with Search Options</title>
+</head>
+<body>
+<nav class="nanbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>1234
+            </button>
+            <a href="#" class="navbar-brand">GPE Tools</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">GPE-Table Search</a></li>
+                <li><a href="#">GPE-XXX</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            {% comment %}<form class="navbar-form navbar-right">
+        	<input type="text" name="" class="form-control" placeholder="you can search content">
+        </form>{% endcomment %}
+        </div>
+    </div>
+</nav>
+<div class="div">
+        <style>
+            .div {
+                margin: 0 auto;
+                width: 1500px;
+                height: 400px;
+                padding-top: 100px;
+            }
+        </style>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+<script type="text/javascript">
+    jQuery("#jqGrid").jqGrid(
+        {
+            url: '/static/DBSchema.json',
+            datatype: "json",
+            colNames: ['Table Name', 'Column', 'Description',],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    width: 60,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                },
+                {
+                    name: 'name', index: 'name', width: 90,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                },
+                {
+                    name: 'price', index: 'price', width: 100,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                }
+            ],
+            loadonce: true,
+            viewrecords: true,
+            rownumbers: true,
+            rownumWidth: 50,
+            width: 1500,
+            height: 800,
+            rowNum: 1000,
+            colMenu: true,
+            pager: "#jqGridPager"
+        });
+    $('#jqGrid').jqGrid('navGrid', "#jqGridPager", {
+        search: true,
+        add: false,
+        edit: false,
+        del: false,
+        refresh: true,
+        multipleSearch: true,
+    });
+    // activate the toolbar searching
+    $('#jqGrid').jqGrid('filterToolbar', {
+        defaultSearch: 'cn', stringResult: true, searchOnEnter: false, searchOperators: true
+    });
+</script>
+
+</body>
+
+</html>

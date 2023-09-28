@@ -1,0 +1,251 @@
+{#{% load staticfiles %}#}
+<!DOCTYPE html>
+<html lang="en">
+{% comment %}<head>
+    {% load static %}
+    <title>bootstrap-table</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    {#        <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.6.2-dist/css/bootstrap-table.min.css">#}
+    {#        <link rel="stylesheet" type="text/css" href="/static/jqGrid-v4.6.0/css/ui.jqgrid.css">#}
+    <link rel="stylesheet" type="text/css" href="/static/jqGrid-v4.6.0/css/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap-datepicker.css">
+
+    <script type="text/javascript" src="/static/bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/jqGrid-v4.6.0/js/minified/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    {#    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap-table.min.js"></script>#}
+    {#        <script type="text/javascript" src="/static/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>#}
+    <script>
+        $.jgrid.defaults.width = 1500;
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+
+</head>{% endcomment %}
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+{#    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>#}
+    <script type="text/javascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <!-- The jQuery library is a prerequisite for all jqSuite products -->
+{#    <script type="text/ecmascript" src="http://www.guriddo.net/demo/js/jquery.min.js"></script>#}
+    <script type="text/ecmascript" src="/static/bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <!-- We support more than 40 localizations -->
+{#    <script type="text/ecmascript" src="http://www.guriddo.net/demo/js/trirand/i18n/grid.locale-cn.js"></script>#}
+    <script type="text/ecmascript" src="/static/jqGrid-v4.6.0/js/i18n/grid.locale-cn.js"></script>
+    <!-- This is the Javascript file of jqGrid -->
+{#    <script type="text/ecmascript" src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>#}
+    <script type="text/ecmascript" src="/static/jqGrid-v4.6.0/js/jquery.jqGrid.min.js"></script>
+    <!-- A link to a Boostrap  and jqGrid Bootstrap CSS siles-->
+    {#	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">#}
+{#    <link rel="stylesheet" type="text/css" media="screen" href="http://www.guriddo.net/demo/css/trirand/ui.jqgrid-bootstrap.css"/>#}
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/jqGrid-v4.6.0/css/ui.jqgrid-bootstrap.css"/>
+    <script>
+        $.jgrid.defaults.width = 1500;
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+    {#	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>#}
+    <script type="text/ecmascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap-datepicker.js"></script>
+{#    <script type="text/ecmascript" src="/http://www.guriddo.net/demo/js/bootstrap-datepicker.js"></script>#}
+{#    <script type="text/ecmascript" src="http://www.guriddo.net/demo/js/bootstrap3-typeahead.js"></script>#}
+    <script type="text/ecmascript" src="/static/bootstrap-3.4.1-dist/js/bootstrap3-typeahead.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="/static/bootstrap-3.4.1-dist/css/bootstrap-datepicker.css"/>
+    <meta charset="utf-8"/>
+    <title>jqGrid Loading Data - Toolbar Searching with Search Options</title>
+</head>
+<body>
+{#    <table id="table" class="table"></table>#}
+<div class="div">
+    <style>
+        .div {
+            margin: 0 auto;
+            width: 1500px;
+            height: 400px;
+            padding-top: 50px;
+        }
+    </style>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+{% comment %}<script type="text/javascript">
+
+        $(document).ready(function () {
+			{#$.jgrid.styleUI.Bootstrap.base.rowTable = "table table-bordered table-striped";#}
+            $("#jqGrid").jqGrid({
+                url: '/static/DBSchema.json',
+                mtype: "GET",
+                datatype: "json",
+                page: 1,
+                colModel: [
+                    {   label : "id",
+						//sorttype: 'integer',
+						name: 'id',
+						key: true,
+						align: 'center',
+						width: 100,
+						stype : 'text',
+						searchoptions: {
+							sopt : ['cn','eq']
+						}
+					},
+					{   label : "name",
+						//sorttype: 'integer',
+						name: 'name',
+						align: 'center',
+						width: 100,
+						stype : 'select',
+						searchoptions: {
+                        	sopt : ['eq','le','ge']
+                        }
+					},
+                    {
+						label: "price",
+                        name: 'price',
+						sorttype: 'number',
+						align: 'center',
+						//sorttype: 'number',
+                        width: 100,
+                        stype: "text",
+                        searchoptions: {
+                        	sopt : ['eq','le','ge']
+                        }
+                    }
+                ],
+				loadonce: true,
+				viewrecords: true,
+				rownumbers: true,
+				rownumWidth: 50,
+                width: 1500,
+                height: 400,
+                rowNum: 1000,
+				colMenu : true,
+                pager: "#jqGridPager"
+            });
+
+			$('#jqGrid').jqGrid('navGrid',"#jqGridPager", {
+			    search: true,
+			    add: false,
+			    edit: false,
+			    del: false,
+			    refresh: true,
+				multipleSearch : true,
+			});
+			// activate the toolbar searching
+            $('#jqGrid').jqGrid('filterToolbar',{
+               defaultSearch:'cn',stringResult: true,searchOnEnter : false ,searchOperators: true
+            });
+        });
+    </script>{% endcomment %}
+<script type="text/javascript">
+    jQuery("#jqGrid").jqGrid(
+        {
+            url: '/static/DBSchema.json',
+            datatype: "json",
+            colNames: ['Table Name', 'Column', 'Descript',],
+            colModel: [
+                {
+                    name: 'id',
+                    index: 'id',
+                    width: 60,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                },
+                {
+                    name: 'name', index: 'name', width: 90,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                },
+                {
+                    name: 'price', index: 'price', width: 100,
+                    stype: "text",
+                    searchoptions: {
+                        sopt: ['cn', 'le', 'ge']
+                    }
+                }
+            ],
+            loadonce: true,
+            viewrecords: true,
+            rownumbers: true,
+            rownumWidth: 50,
+            width: 1500,
+            height: 800,
+            rowNum: 1000,
+            colMenu: true,
+            pager: "#jqGridPager"
+        });
+    $('#jqGrid').jqGrid('navGrid', "#jqGridPager", {
+        search: true,
+        add: false,
+        edit: false,
+        del: false,
+        refresh: true,
+        multipleSearch: true,
+    });
+    // activate the toolbar searching
+    $('#jqGrid').jqGrid('filterToolbar', {
+        defaultSearch: 'cn', stringResult: true, searchOnEnter: false, searchOperators: true
+    });
+</script>
+
+</body>
+
+{% comment %}<script>
+    var url = '/static/DBSchema.json';
+    var columns = [
+        {
+            checkbox: true,
+            visible: true                  //是否显示复选框
+        },
+        {
+            field: 'id',
+            title: 'ID'
+        }, {
+            field: 'name',
+            title: '姓名'
+        }, {
+            field: 'price',
+            title: '价格'
+        }
+    ];
+    $("#table").bootstrapTable({
+        url: url,                           //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,                   //是否显示分页（*）
+        pageSize: 10,                       //每页的记录行数（*）
+        pageList: [10, 20, 50, 100, 'All'], //可供选择的每页的行数（*）
+        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1,                      //初始化加载第一页，默认第一页
+        search: true,                       //是否显示表格搜索
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: false,                  //是否显示刷新按钮
+        minimumCountColumns: 2,             //最少允许的列数
+        //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数决定表格高度
+        showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+        columns: columns,                   //列参数
+        //detailView: true,                  //是否显示父子表
+        //得到查询的参数，会在url后面拼接，如：?rows=5&page=2&sortOrder=asc&search_kw=&_=1564105760651
+        queryParams: function (params) {
+            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            var query_params = {
+                page: (params.offset / params.limit) + 1,   //页码
+                size: params.limit,    //页面大小
+                //查询框中的参数传递给后台
+                //search_kw: $('#search-keyword').val(), // 请求时向服务端传递的参数
+            };
+            return query_params;
+        },
+
+    });
+    //得到查询的参数
+
+</script>{% endcomment %}
+</html>
